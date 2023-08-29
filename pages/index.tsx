@@ -1,108 +1,83 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
-import Image from "next/image";
+import {
+  ConnectWallet,
+  ThirdwebNftMedia,
+  useAddress,
+  useContract,
+  useOwnedNFTs,
+} from "@thirdweb-dev/react";
+import { useRouter } from "next/router";
 import { NextPage } from "next";
-
+import DotLoader from "react-spinners/DotLoader";
+import { CHARACTER_ADDRESS } from "../const/addresses";
+import { ClaimCharacter } from "../components/ClaimCharacter";
 const Home: NextPage = () => {
-  return (
-    <main className={styles.main}>
+  const { contract: editionDrop } = useContract(
+    CHARACTER_ADDRESS,
+    "edition-drop"
+  );
+  const address = useAddress();
+  const router = useRouter();
+  const {
+    data: ownedNFTs,
+    isLoading,
+    isError,
+  } = useOwnedNFTs(editionDrop, address);
+  console.log(ownedNFTs);
+
+  if (!address) {
+    return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>
-            Welcome to{" "}
-            <span className={styles.gradientText0}>
-              <a
-                href="https://thirdweb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                thirdweb.
-              </a>
-            </span>
-          </h1>
-
-          <p className={styles.description}>
-            Get started by configuring your desired network in{" "}
-            <code className={styles.code}>src/index.js</code>, then modify the{" "}
-            <code className={styles.code}>src/App.js</code> file!
-          </p>
-
-          <div className={styles.connect}>
-            <ConnectWallet
-              dropdownPosition={{
-                side: "bottom",
-                align: "center",
-              }}
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://portal.thirdweb.com/"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/portal-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText1}>Portal ➜</h2>
-              <p>
-                Guides, references, and resources that will help you build with
-                thirdweb.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/dashboard"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/dashboard-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText2}>Dashboard ➜</h2>
-              <p>
-                Deploy, configure, and manage your smart contracts from the
-                dashboard.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/templates"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/templates-preview.png"
-              alt="Placeholder preview of templates"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText3}>Templates ➜</h2>
-              <p>
-                Discover and clone template projects showcasing thirdweb
-                features.
-              </p>
-            </div>
-          </a>
+        <div style={{ textAlign: "center" }}>
+          <h1>Welcome to our ThesisNFT game</h1>
+          <p>Please connect to your wallet to play this game</p>
+          <ConnectWallet theme="light" />
         </div>
       </div>
-    </main>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <DotLoader color="#800080" />
+      </div>
+    );
+  }
+
+  if (isError || !ownedNFTs) {
+    return <div>Error</div>;
+  }
+
+  if (ownedNFTs.length === 0) {
+    return (
+      <div className={styles.container}>
+        <ClaimCharacter />
+      </div>
+    );
+  }
+  return (
+    <div className={styles.container}>
+      <h1>Your current own character</h1>
+      {ownedNFTs.map((value, index) => (
+        <div key={index}>
+          <div className={styles.character} style={{ marginBottom: "15px" }}>
+            <ThirdwebNftMedia
+              metadata={value.metadata}
+              width="300px"
+              style={{ borderRadius: "10px" }}
+            />
+            <p style={{ textAlign: "center" }}>{value.metadata.name}</p>
+          </div>
+        </div>
+      ))}
+      <button
+        className={`${styles.mainButton} ${styles.spacerBottom}`}
+        onClick={() => router.push("/play")}
+      >
+        Play Game
+      </button>
+    </div>
   );
 };
 
