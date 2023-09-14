@@ -40,7 +40,7 @@ export const ClaimCharacter = () => {
                 style={{ marginTop: "5px" }}
               />
               <p style={{ textAlign: "center" }}>
-                Name character: {value.metadata.name}
+                Name character: <b>{value.metadata.name}</b>
               </p>
               <Web3Button
                 theme="dark"
