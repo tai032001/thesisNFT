@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     isLoading,
     isError,
   } = useOwnedNFTs(editionDrop, address);
-  console.log(ownedNFTs);
+  // console.log(ownedNFTs);
 
   if (!address) {
     return (
@@ -67,7 +67,9 @@ const Home: NextPage = () => {
               width="300px"
               style={{ borderRadius: "10px" }}
             />
-            <p style={{ textAlign: "center" }}>{value.metadata.name}</p>
+            <p style={{ textAlign: "center" }}>
+              <b>{value.metadata.name}</b>
+            </p>
           </div>
         </div>
       ))}
