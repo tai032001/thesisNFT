@@ -5,7 +5,7 @@ const play = () => {
   return (
     <div>
       play
-      {/* <TransactionHistory /> */}
+      <TransactionHistory />
     </div>
   );
 };

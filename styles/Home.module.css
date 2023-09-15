@@ -602,6 +602,21 @@
   border-color: white;
   border-radius: 10px;
 }
-/* .nftCharacters {
+.transHistory{
   display: flex;
-} */
+  /* width: 100vw; */
+  height: 30vh;
+  /* gap: 3vw;
+  padding: 2vw; */
+  /* box-sizing: border-box; */
+  overflow-x: scroll;
+}
+.historyInside{
+  border-radius: 10%;
+  /* position: relative; */
+  overflow-x: scroll;
+  /* flex-grow: 1; */
+  background:white;
+  /* overflow: hidden; */
+  color: black;
+}
