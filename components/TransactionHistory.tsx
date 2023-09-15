@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAddress } from "@thirdweb-dev/react";
-import { timeStamp } from "console";
+import styles from "../styles/Home.module.css";
 const TransactionHistory = () => {
   const address = useAddress();
   const [transHistory, setTransHistory] = useState<any[]>([]);
   const headApiHistory =
     "https://api-sepolia.etherscan.io/api?module=account&action=txlist&address=";
   const tailApiHistory =
-    "&startblock=0&endblock=99999999&page=1&offset=5&sort=asc&apikey=TQJ8GQVQKW6UCKCTJ3R5UHWU5TZGEK1Y5C";
+    "&startblock=0&endblock=99999999&page=1&offset=6&sort=asc&apikey=TQJ8GQVQKW6UCKCTJ3R5UHWU5TZGEK1Y5C";
   useEffect(() => {
     const fetchHistory = async () => {
       try {
@@ -24,18 +24,34 @@ const TransactionHistory = () => {
     };
     fetchHistory();
   }, []);
+
   return (
     <div>
       TransactionHistory
-      {transHistory?.map((value, index) => {
-        return (
-          <div key={index}>
-            <p>From:{value.from}</p>
-            <p>To:{value.to}</p>
-            <p>Value{value.value}</p>
-          </div>
-        );
-      })}
+      <div className={styles.transHistory}>
+        {transHistory?.map((value, index) => {
+          return (
+            <div className={styles.historyInside} key={index}>
+              <p>
+                <b>From:</b>
+                {value.from}
+              </p>
+              <p>
+                <b>To:</b>
+                {value.to}
+              </p>
+              <p>
+                <b>Value:</b>
+                {value.value}
+              </p>
+              <p>
+                <b>Date:</b>
+                {new Date(value.timeStamp * 1000).toDateString()}
+              </p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
