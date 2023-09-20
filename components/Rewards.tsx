@@ -3,7 +3,7 @@ import {
     ThirdwebNftMedia,
     useAddress,
     useContractCall,
-    useContractData,
+    useContractRead,
     useMetadata,
     useTokenBalance,
     Web3Button,
@@ -24,7 +24,7 @@ import {
     const {data: tokenMetadata} = useMetadata(tokenContract);
     const {data: currentBalance} = useTokenBalance(tokenContract, address);
 
-    const {data: unclaimedAmount } = useContractData(
+    const {data: unclaimedAmount } = useContractRead(
         miningContract,
         "calculateRewards",
         [address]
