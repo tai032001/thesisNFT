@@ -27,7 +27,7 @@ export default function CurrentGear({
                 return;
             }
             const p = (await miningContract.call(
-                "playerPickSword",
+                "playerSword",
                 address
             )) as ContractMappingResponse;
             if(p.isData){

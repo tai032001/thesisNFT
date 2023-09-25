@@ -2,7 +2,7 @@ import { React } from "react";
 import {
     ThirdwebNftMedia,
     useAddress,
-    useContractCall,
+    useContractWrite,
     useContractRead,
     useMetadata,
     useTokenBalance,
@@ -30,7 +30,7 @@ import {
         [address]
     );
 
-    const { mutate:claim } = useContractCall(miningContract, "claim");
+    const { mutate:claim } = useContractWrite(miningContract, "claim");
     return (
         <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
             <p>

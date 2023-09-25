@@ -45,7 +45,7 @@ export default function ApproxRewards({miningContract}: Props){
         <p style={{width:370, overflow: "hidden"}}>
             Earned this session:{" "}
             <b>
-                {ethers.ultils.formatEther((amount*multiplier).toFixed(0)) || "Error..."}
+                {ethers.utils.formatEther((amount*multiplier).toFixed(0)) || "Error..."}
             </b>
         </p>
     );

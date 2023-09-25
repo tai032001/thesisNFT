@@ -48,7 +48,7 @@ export default function play() {
 
   return (
     <div className={styles.container}>
-      {
+      {/* {
         miningContract && 
         characterContract &&
         tokenContract &&
@@ -69,7 +69,7 @@ export default function play() {
           <div className={styles.container}>reward
             <DotLoader color="#800080" />
           </div>
-        )}
+        )} */}
 
         <hr className={`${styles.divider} ${styles.bigSpacerTop}`}/>
 
@@ -95,7 +95,7 @@ export default function play() {
 
         {toolContract && tokenContract ? (
           <>
-          <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>Shop</h2>
+          <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>SHOP</h2>
           <div className={styles.shop}>
            <Shop
              toolContract={tokenContract}
