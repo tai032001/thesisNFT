@@ -2,41 +2,31 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 import TransactionHistory from "../components/TransactionHistory";
 import DotLoader from "react-spinners/DotLoader";
-import {
-  ConnectWallet,
-  useAddress,
-  useContract,
-  useEditionDrop,
-  useToken,
-} from "@thirdweb-dev/react";
-import CurrentGear from "../components/CurrentGear";
+import { ConnectWallet, useAddress, useContract } from "@thirdweb-dev/react";
+// import CurrentGear from "../components/CurrentGear";
 import OwnedGear from "../components/OwnedGear";
 import Rewards from "../components/Rewards";
 import Shop from "../components/Shop";
 
-import {  
+import {
   CHARACTER_ADDRESS,
   GAMEPLAY_ADDRESS,
   TOOL_ADDRESS,
   TOKEN_ADDRESS,
 } from "../const/addresses";
+import Header from "../components/Header";
+import CurrentGear from "../components/CurrentGear";
 
-// const play = () => {
-
-//   return (
-//     <div >
-//       play
-//       <TransactionHistory />
-//     </div>
-//   );
-// };
-
-export default function play() {
+// import styles from "../styles/Home.module.css";
+export function PlayPage() {
   const address = useAddress();
-  const { contract: miningContract } = useContract(GAMEPLAY_ADDRESS);
-  const characterContract = useEditionDrop(CHARACTER_ADDRESS);
-  const tokenContract = useToken(TOKEN_ADDRESS);
-  const toolContract = useEditionDrop(TOOL_ADDRESS);
+  const { contract: gameContract } = useContract(GAMEPLAY_ADDRESS);
+  const { contract: characterContract } = useContract(
+    CHARACTER_ADDRESS,
+    "edition-drop"
+  );
+  const { contract: tokenContract } = useContract(TOKEN_ADDRESS, "token");
+  const { contract: swordContract } = useContract(TOOL_ADDRESS, "edition-drop");
 
   if (!address) {
     return (
@@ -45,68 +35,68 @@ export default function play() {
       </div>
     );
   }
-
   return (
-    <div className={styles.container}>
-      {/* {
-        miningContract && 
-        characterContract &&
-        tokenContract &&
-        toolContract ? (
+    <div>
+      <Header />
+      <div className={styles.playContainer}>
+        {gameContract && characterContract && tokenContract && swordContract ? (
           <div className={styles.mainSection}>
             <CurrentGear
-            miningContract={miningContract}
-            characterContract={characterContract}
-            toolContract={toolContract}
+              gameContract={gameContract}
+              characterContract={characterContract}
+              swordContract={swordContract}
             />
-            <Rewards 
-              miningContract={miningContract}
+            <Rewards
+              miningContract={gameContract}
               tokenContract={tokenContract}
-
             />
           </div>
         ) : (
-          <div className={styles.container}>reward
+          <div className={styles.container}>
             <DotLoader color="#800080" />
           </div>
-        )} */}
+        )}
 
-        <hr className={`${styles.divider} ${styles.bigSpacerTop}`}/>
+        <hr className={`${styles.divider} ${styles.bigSpacerTop}`} />
 
-        {toolContract && miningContract ?(
+        {swordContract && gameContract ? (
           <>
-           <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>
-            Your Owned Swords
-           </h2>
-           <div className={styles.shop}>
-            <OwnedGear
-              toolContract={tokenContract}
-              miningContract={miningContract}
-            />
-           </div>
+            <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>
+              Your Owned Swords
+            </h2>
+            <div className={styles.shop}>
+              <OwnedGear
+                swordContract={swordContract}
+                gameContract={gameContract}
+              />
+            </div>
           </>
         ) : (
-          <div className={styles.container}> sword
+          <div className={styles.container}>
+            {" "}
+            sword
             <DotLoader color="#800080" />
           </div>
         )}
 
-        <hr className={`${styles.divider} ${styles.bigSpacerTop}`}/>
+        <hr className={`${styles.divider} ${styles.bigSpacerTop}`} />
 
-        {toolContract && tokenContract ? (
+        {swordContract && tokenContract ? (
           <>
-          <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>SHOP</h2>
-          <div className={styles.shop}>
-           <Shop
-             toolContract={tokenContract}
-           />
-          </div>
-         </>
-         ) : (
-          <div className={styles.container}>shop
+            <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>SHOP</h2>
+            <div className={styles.shop}>
+              <Shop swordContract={swordContract} />
+            </div>
+          </>
+        ) : (
+          <div className={styles.container}>
+            shop
             <DotLoader color="#800080" />
           </div>
         )}
+      </div>
     </div>
-  )
-};
+  );
+}
+
+export default PlayPage;
