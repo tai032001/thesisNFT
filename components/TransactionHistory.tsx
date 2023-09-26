@@ -8,26 +8,26 @@ const TransactionHistory = () => {
   const headApiHistory =
     "https://api-sepolia.etherscan.io/api?module=account&action=txlist&address=";
   const tailApiHistory =
-    "&startblock=0&endblock=99999999&page=1&offset=6&sort=asc&apikey=TQJ8GQVQKW6UCKCTJ3R5UHWU5TZGEK1Y5C";
+    "&startblock=0&endblock=99999999&page=1&offset=5&sort=asc&apikey=TQJ8GQVQKW6UCKCTJ3R5UHWU5TZGEK1Y5C";
   useEffect(() => {
-    const fetchHistory = async () => {
+    const FetchHistory = async () => {
       try {
         const res = await axios.get(
           `${headApiHistory}${address}${tailApiHistory}`
         );
         setTransHistory(res.data.result);
         console.log(`address:`, address);
-        console.log(transHistory);
+        console.log(res.data.result);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchHistory();
-  }, []);
+    FetchHistory();
+  }, [address]);
 
   return (
     <div>
-      TransactionHistory
+      Transaction History
       <div className={styles.transHistory}>
         {transHistory?.map((value, index) => {
           return (
