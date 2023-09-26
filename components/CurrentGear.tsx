@@ -1,80 +1,105 @@
-import { ThirdwebNftMedia, useAddress, useNFT } from "@thirdweb-dev/react";
-import { EditionDrop, SmartContract } from "@thirdweb-dev/sdk";
+import {
+  ThirdwebNftMedia,
+  useAddress,
+  useContract,
+  useNFT,
+  useOwnedNFTs,
+} from "@thirdweb-dev/react";
+import { EditionDrop, NFT, SmartContract } from "@thirdweb-dev/sdk";
 import React, { useEffect, useState } from "react";
-import ContractMappingResponse from "../types/ContractMappingResponse";
-import EditionDropMetadata from "../types/EditionDropMetadata";
-import GamePlayAnimation from "./GamePlayAnimation";
+//   import { CHARACTER } from "../const/contractAddress";
 import styles from "../styles/Home.module.css";
-
+import Image from "next/image";
+import ContractMappingResponse from "../types/ContractMappingResponse";
+//   import GameplayAnimation from "./GameplayAnimation";
 type Props = {
-    miningContract: SmartContract<any>;
-    characterContract: EditionDrop;
-    toolContract: EditionDrop;
+  gameContract: SmartContract<any>;
+  characterContract: EditionDrop;
+  swordContract: EditionDrop;
 };
-export default function CurrentGear({
-    miningContract,
-    characterContract,
-    toolContract,
-}: Props) {
-    const address = useAddress();
+const CurrentGear = ({
+  gameContract,
+  characterContract,
+  swordContract,
+}: Props) => {
+  const address = useAddress();
+  // const { contract: Character } = useContract(CHARACTER, "edition-drop");
+  const { data: ownedNft } = useNFT(characterContract, 1);
+  const [sword, setSword] = useState<NFT>();
+  useEffect(() => {
+    (async () => {
+      if (!address) return;
 
-    const { data: playerNft} = useNFT(characterContract, 0);
-    const [tool, setTool] = useState<EditionDropMetadata>();
+      const p = (await gameContract.call("playerSword", [
+        address,
+      ])) as ContractMappingResponse;
 
-    useEffect (() => {
-        (async () => {
-            if (!address) {
-                return;
-            }
-            const p = (await miningContract.call(
-                "playerSword",
-                address
-            )) as ContractMappingResponse;
-            if(p.isData){
-                const toolMetadata = await toolContract.get(p.value);
-                setTool(toolMetadata);
-            }
-        })();
-    }, [address, miningContract, toolContract]);
+      // Now we have the tokenId of the equipped sword, if there is one, fetch the metadata for it
+      if (p.isData) {
+        const swordMetadata = await swordContract.get(p.value);
+        setSword(swordMetadata);
+        console.log(sword);
+      }
+    })();
+  }, [address, gameContract, swordContract, sword]);
 
-    return (
-        <div style = {{ display: "flex", flexDirection: "column"}}>
-            <h2 className={`${styles.noGapTop}`}>Equipped Items</h2>
-            <div
-                style={{
-                    display:"flex",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    justifyContent: "center", 
-                }}
-            >
-                {/*currently equipped played*/}
-                <div style={{ outline: "1px solid grey", borderRadius: 16}}>
-                    {playerNft && (
-                        <ThirdwebNftMedia metadata={playerNft?.metadata} height={"64"}/>
-                    )}
-                </div>
-                {/*currently equipped played*/}
-                <div style={{ outline: "1px solid grey", borderRadius: 16, marginLeft: 8}}>
-                    {tool && (
-                        <ThirdwebNftMedia metadata={tool.metadata} height={"64"}/>
-                    )}
-                </div>
-            </div>
-            {/* gameplay animation */}
-
-            <div 
-                style={{
-                    display:"flex",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    justifyContent: "center", 
-                    marginTop: 24,
-                }}
-            >
-                <img src="F../public/images/male.gif" height={64} width={64} alt="character-mining"/>
-                <GamePlayAnimation tool= {tool}/>
-            </div>
+  // console.log(ownedNft);
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <h2 className={`${styles.noGapTop} `}>Equipped Items</h2>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        {/* Currently equipped player */}
+        <div style={{ outline: "1px solid grey", borderRadius: 16 }}>
+          {ownedNft && (
+            <ThirdwebNftMedia
+              metadata={ownedNft?.metadata}
+              width="150px"
+              height={"64px"}
+            />
+          )}
         </div>
-    );
-}
+        {/* Currently equipped pickaxe */}
+        <div
+          style={{ outline: "1px solid grey", borderRadius: 16, marginLeft: 8 }}
+        >
+          {sword && (
+            <ThirdwebNftMedia
+              metadata={sword?.metadata}
+              width="150px"
+              height={"64px"}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Gameplay Animation */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 24,
+        }}
+      >
+        {ownedNft && (
+          <ThirdwebNftMedia
+            metadata={ownedNft?.metadata}
+            width={"100px"}
+            height={"64px"}
+          />
+        )}
+        {/* <GameplayAnimation sword={sword} /> */}
+      </div>
+    </div>
+  );
+};
+
+export default CurrentGear;
