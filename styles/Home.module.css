@@ -602,15 +602,22 @@
   border-width: 0.5px;
   border-color: white;
   border-radius: 10px;
+  height: fit-content;
 }
 .transHistory{
   display: flex;
+  width: 90vw;
   height: 30vh;
   justify-content: space-around;
   gap:2vw;
-  overflow-x: scroll;
+  margin-top: 28px;
+  margin-bottom: 28px;
 }
 .historyInside{
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: white;
+  border-radius: 10px;
   overflow-x: scroll;
   background:black;
 }

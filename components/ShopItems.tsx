@@ -7,6 +7,7 @@ import { EditionDrop, NFT } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import styles from "../styles/Home.module.css";
 import { TOOL_ADDRESS } from "../const/addresses";
+import Swal from "sweetalert2";
 
 type Props = {
   swordContract: EditionDrop;
@@ -40,8 +41,12 @@ export default function ShopItems({ swordContract, item }: Props) {
           theme="dark"
           contractAddress={TOOL_ADDRESS}
           action={(contract) => contract.erc1155.claim(item.metadata.id, 1)}
-          onSuccess={() => alert("Purchased!")}
-          onError={(error) => alert(error)}
+          onSuccess={() =>
+            Swal.fire("Claim Character", "Successfully", "success")
+          }
+          onError={() =>
+            Swal.fire("Claim Character", "Something has wrong", "error")
+          }
         >
           Buy
         </Web3Button>

@@ -6,11 +6,10 @@ import {
 } from "@thirdweb-dev/react";
 import { EditionDrop, SmartContract } from "@thirdweb-dev/sdk";
 import React from "react";
-// import LoadingSection from "./LoadingSection";
 import styles from "../styles/Home.module.css";
 import { GAMEPLAY_ADDRESS } from "../const/addresses";
 import { DotLoader } from "react-spinners";
-// import { MINING_CONTRACT_ADDRESS } from "../const/contractAddresses";
+import Swal from "sweetalert2";
 type Props = {
   swordContract: EditionDrop;
   gameContract: SmartContract<any>;
@@ -18,8 +17,8 @@ type Props = {
 
 /**
  * This component shows the:
- * - Pickaxes the connected wallet has
- * - A stake button underneath each of them to equip it
+ * - Swords the connected wallet has
+ * - A button underneath each of them to equip it
  */
 export default function OwnedGear({ swordContract, gameContract }: Props) {
   const address = useAddress();
@@ -36,7 +35,7 @@ export default function OwnedGear({ swordContract, gameContract }: Props) {
   async function equip(id: string) {
     if (!address) return;
 
-    // The contract requires approval to be able to transfer the pickaxe
+    // The contract requires approval to be able to transfer the sword
     const hasApproval = await swordContract.isApproved(
       address,
       GAMEPLAY_ADDRESS
@@ -70,6 +69,9 @@ export default function OwnedGear({ swordContract, gameContract }: Props) {
                 theme="dark"
                 contractAddress={GAMEPLAY_ADDRESS}
                 action={() => equip(ownedNft.metadata.id)}
+                onSuccess={() =>
+                  Swal.fire("Equip", "Equip sword successfully", "success")
+                }
               >
                 Equip
               </Web3Button>

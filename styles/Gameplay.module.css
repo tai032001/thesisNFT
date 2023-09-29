@@ -13,7 +13,7 @@
     overflow: hidden;
     position: relative;
     width: 500px;
-  
+    
     /* before */
   }
   
@@ -39,12 +39,12 @@
   }
   
   .slideTrack {
-    animation: scroll 10s linear infinite;
+    animation: scroll 7s linear infinite;
     display: flex;
-    width: calc(250px * 14);
+    width: calc(250px * 10);
   }
   
   .slide {
     height: 100px;
-    width: 250px;
+    width: 150px;
   }
