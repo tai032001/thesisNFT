@@ -62,7 +62,7 @@ export function PlayPage() {
         {swordContract && gameContract ? (
           <>
             <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>
-              Your Owned Swords
+              OWNED SWORDS
             </h2>
             <div className={styles.shop}>
               <OwnedGear
@@ -94,6 +94,9 @@ export function PlayPage() {
             <DotLoader color="#800080" />
           </div>
         )}
+        <hr className={`${styles.divider} ${styles.bigSpacerTop}`} />
+
+        <TransactionHistory />
       </div>
     </div>
   );

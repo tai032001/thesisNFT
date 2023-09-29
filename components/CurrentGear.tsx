@@ -1,17 +1,10 @@
-import {
-  ThirdwebNftMedia,
-  useAddress,
-  useContract,
-  useNFT,
-  useOwnedNFTs,
-} from "@thirdweb-dev/react";
+import { ThirdwebNftMedia, useAddress, useNFT } from "@thirdweb-dev/react";
 import { EditionDrop, NFT, SmartContract } from "@thirdweb-dev/sdk";
 import React, { useEffect, useState } from "react";
-//   import { CHARACTER } from "../const/contractAddress";
 import styles from "../styles/Home.module.css";
-import Image from "next/image";
 import ContractMappingResponse from "../types/ContractMappingResponse";
-//   import GameplayAnimation from "./GameplayAnimation";
+import GamePlayAnimation from "./GamePlayAnimation";
+
 type Props = {
   gameContract: SmartContract<any>;
   characterContract: EditionDrop;
@@ -46,7 +39,7 @@ const CurrentGear = ({
   // console.log(ownedNft);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <h2 className={`${styles.noGapTop} `}>Equipped Items</h2>
+      <h2 style={{ textAlign: "center" }}>Equipped Items</h2>
       <div
         style={{
           display: "flex",
@@ -96,7 +89,7 @@ const CurrentGear = ({
             height={"64px"}
           />
         )}
-        {/* <GameplayAnimation sword={sword} /> */}
+        <GamePlayAnimation sword={sword} />
       </div>
     </div>
   );

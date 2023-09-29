@@ -26,8 +26,10 @@ const TransactionHistory = () => {
   }, [address]);
 
   return (
-    <div>
-      Transaction History
+    <div style={{ textAlign: "center" }}>
+      <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>
+        LATEST TRANSACTIONS
+      </h2>
       <div className={styles.transHistory}>
         {transHistory?.map((value, index) => {
           return (
