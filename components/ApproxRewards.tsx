@@ -4,9 +4,9 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import ContractMappingResponse from "../types/ContractMappingResponse";
 type Props = {
-  miningContract: SmartContract<any>;
+  gameContract: SmartContract<any>;
 };
-export default function ApproxRewards({ miningContract }: Props) {
+export default function ApproxRewards({ gameContract }: Props) {
   const address = useAddress();
   const everyMillisecondAmount = parseInt(
     (10_000_000_000_000 / 2.1).toFixed(0)
@@ -20,7 +20,7 @@ export default function ApproxRewards({ miningContract }: Props) {
         return;
       }
 
-      const p = (await miningContract.call("playerSword", [
+      const p = (await gameContract.call("playerSword", [
         address,
       ])) as ContractMappingResponse;
 
@@ -30,7 +30,7 @@ export default function ApproxRewards({ miningContract }: Props) {
         setMultiplier(0);
       }
     })();
-  }, [address, miningContract]);
+  }, [address, gameContract]);
 
   useEffect(() => {
     const interval = setInterval(() => {

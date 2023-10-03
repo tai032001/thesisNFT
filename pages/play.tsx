@@ -3,7 +3,6 @@ import styles from "../styles/Home.module.css";
 import TransactionHistory from "../components/TransactionHistory";
 import DotLoader from "react-spinners/DotLoader";
 import { ConnectWallet, useAddress, useContract } from "@thirdweb-dev/react";
-// import CurrentGear from "../components/CurrentGear";
 import OwnedGear from "../components/OwnedGear";
 import Rewards from "../components/Rewards";
 import Shop from "../components/Shop";
@@ -17,7 +16,6 @@ import {
 import Header from "../components/Header";
 import CurrentGear from "../components/CurrentGear";
 
-// import styles from "../styles/Home.module.css";
 export function PlayPage() {
   const address = useAddress();
   const { contract: gameContract } = useContract(GAMEPLAY_ADDRESS);
@@ -31,7 +29,11 @@ export function PlayPage() {
   if (!address) {
     return (
       <div className={styles.container}>
-        <ConnectWallet />
+        <div style={{ textAlign: "center" }}>
+          {/* <h1>Welcome to our ThesisNFT game</h1> */}
+          <p>Please connect to your wallet to play this game</p>
+          <ConnectWallet theme="light" />
+        </div>
       </div>
     );
   }
@@ -47,7 +49,7 @@ export function PlayPage() {
               swordContract={swordContract}
             />
             <Rewards
-              miningContract={gameContract}
+              gameContract={gameContract}
               tokenContract={tokenContract}
             />
           </div>

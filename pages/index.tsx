@@ -11,6 +11,7 @@ import { NextPage } from "next";
 import DotLoader from "react-spinners/DotLoader";
 import { CHARACTER_ADDRESS } from "../const/addresses";
 import { ClaimCharacter } from "../components/ClaimCharacter";
+import Header from "../components/Header";
 const Home: NextPage = () => {
   const { contract: editionDrop } = useContract(
     CHARACTER_ADDRESS,
@@ -57,29 +58,33 @@ const Home: NextPage = () => {
     );
   }
   return (
-    <div className={styles.container}>
-      <h1>Your current own character</h1>
-      {ownedNFTs.map((value, index) => (
-        <div key={index}>
-          <div className={styles.character} style={{ marginBottom: "15px" }}>
-            <ThirdwebNftMedia
-              metadata={value.metadata}
-              width="300px"
-              style={{ borderRadius: "10px" }}
-            />
-            <p style={{ textAlign: "center" }}>
-              <b>{value.metadata.name}</b>
-            </p>
+    <>
+      <Header />
+
+      <div className={styles.container}>
+        <h1>Your current own character</h1>
+        {ownedNFTs.map((value, index) => (
+          <div key={index}>
+            <div className={styles.character} style={{ marginBottom: "15px" }}>
+              <ThirdwebNftMedia
+                metadata={value.metadata}
+                width="300px"
+                style={{ borderRadius: "10px" }}
+              />
+              <p style={{ textAlign: "center" }}>
+                <b>{value.metadata.name}</b>
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
-      <button
-        className={`${styles.mainButton} ${styles.spacerBottom}`}
-        onClick={() => router.push("/play")}
-      >
-        Play Game
-      </button>
-    </div>
+        ))}
+        <button
+          className={`${styles.mainButton} ${styles.spacerBottom}`}
+          onClick={() => router.push("/play")}
+        >
+          Play Game
+        </button>
+      </div>
+    </>
   );
 };
 

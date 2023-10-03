@@ -11,20 +11,21 @@ import { SmartContract, Token } from "@thirdweb-dev/sdk";
 import { ethers } from "ethers";
 import styles from "../styles/Home.module.css";
 import ApproxRewards from "../components/ApproxRewards";
+import { GAMEPLAY_ADDRESS } from "../const/addresses";
 
 type Props = {
-  miningContract: SmartContract<any>;
+  gameContract: SmartContract<any>;
   tokenContract: Token;
 };
 
-export default function Rewards({ miningContract, tokenContract }: Props) {
+export default function Rewards({ gameContract, tokenContract }: Props) {
   const address = useAddress();
 
   const { data: tokenMetadata } = useMetadata(tokenContract);
   const { data: currentBalance } = useTokenBalance(tokenContract, address);
 
   const { data: unclaimedAmount } = useContractRead(
-    miningContract,
+    gameContract,
     "calculateRewards",
     [address]
   );
@@ -46,17 +47,17 @@ export default function Rewards({ miningContract, tokenContract }: Props) {
         <ThirdwebNftMedia metadata={tokenMetadata} height={"48px"} />
       ) : null}
       <p className={styles.noGapBottom}>
-        Balance: <b>{currentBalance?.displayValue}</b>
+        User has owned: <b>{currentBalance?.displayValue} Monster Token</b>
       </p>
       <p>
         Unclaimed:{" "}
         <b>{unclaimedAmount && ethers.utils.formatUnits(unclaimedAmount)}</b>
       </p>
 
-      <ApproxRewards miningContract={miningContract} />
+      <ApproxRewards gameContract={gameContract} />
       <Web3Button
-        contractAddress={miningContract.getAddress()}
-        action={(contract) => contract.call("claim")}
+        contractAddress={GAMEPLAY_ADDRESS}
+        action={(contract) => contract.call("withdraw")}
       >
         Claim
       </Web3Button>
