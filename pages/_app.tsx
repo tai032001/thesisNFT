@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div
         style={{
           backgroundImage: `url('/images/background.webp')`,
-          height: "100vh",
+          height: "100%",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

@@ -1,9 +1,14 @@
-import { ThirdwebNftMedia, useAddress, useNFT } from "@thirdweb-dev/react";
+import {
+  ThirdwebNftMedia,
+  useAddress,
+  useOwnedNFTs,
+} from "@thirdweb-dev/react";
 import { EditionDrop, NFT, SmartContract } from "@thirdweb-dev/sdk";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import ContractMappingResponse from "../types/ContractMappingResponse";
 import GamePlayAnimation from "./GamePlayAnimation";
+import { DotLoader } from "react-spinners";
 
 type Props = {
   gameContract: SmartContract<any>;
@@ -16,9 +21,12 @@ const CurrentGear = ({
   swordContract,
 }: Props) => {
   const address = useAddress();
-  // const { contract: Character } = useContract(CHARACTER, "edition-drop");
-  const { data: ownedNft } = useNFT(characterContract, 1);
+  const { data: ownedNft, isLoading } = useOwnedNFTs(
+    characterContract,
+    address
+  );
   const [sword, setSword] = useState<NFT>();
+
   useEffect(() => {
     (async () => {
       if (!address) return;
@@ -31,12 +39,18 @@ const CurrentGear = ({
       if (p.isData) {
         const swordMetadata = await swordContract.get(p.value);
         setSword(swordMetadata);
-        console.log(sword);
+        // console.log(sword);
       }
     })();
   }, [address, gameContract, swordContract, sword]);
+  if (isLoading) {
+    return (
+      <div className={styles.playContainer}>
+        <DotLoader color="#800080" />
+      </div>
+    );
+  }
 
-  // console.log(ownedNft);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <h2 style={{ textAlign: "center" }}>Equipped Items</h2>
@@ -50,13 +64,21 @@ const CurrentGear = ({
       >
         {/* Currently equipped player */}
         <div style={{ outline: "1px solid grey", borderRadius: 16 }}>
-          {ownedNft && (
+          {/* {ownedNft && (
             <ThirdwebNftMedia
-              metadata={ownedNft?.metadata}
+              metadata={ownedNft.metadata}
               width="150px"
-              height={"64px"}
+              height="64px"
             />
-          )}
+          )} */}
+          {ownedNft?.map((ownedNft, index) => (
+            <ThirdwebNftMedia
+              key={index}
+              metadata={ownedNft.metadata}
+              width="150px"
+              height="64px"
+            />
+          ))}
         </div>
         {/* Currently equipped pickaxe */}
         <div
@@ -72,7 +94,7 @@ const CurrentGear = ({
         </div>
       </div>
 
-      {/* Gameplay Animation */}
+      {/* GamePlay Animation */}
       <div
         style={{
           display: "flex",
@@ -82,13 +104,21 @@ const CurrentGear = ({
           marginTop: 24,
         }}
       >
-        {ownedNft && (
+        {/* {ownedNft && (
           <ThirdwebNftMedia
             metadata={ownedNft?.metadata}
             width={"100px"}
             height={"64px"}
           />
-        )}
+        )} */}
+        {ownedNft?.map((ownedNft, index) => (
+          <ThirdwebNftMedia
+            key={index}
+            metadata={ownedNft.metadata}
+            width="100px"
+            height="48px"
+          />
+        ))}
         <GamePlayAnimation sword={sword} />
       </div>
     </div>
