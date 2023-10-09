@@ -14,11 +14,13 @@
     "@thirdweb-dev/react": "^3",
     "@thirdweb-dev/sdk": "^3",
     "axios": "^1.5.0",
+    "bootstrap-icons": "^1.11.1",
     "ethers": "^5",
     "next": "^13",
     "react": "^18.2",
     "react-dom": "^18.2",
     "react-spinners": "^0.13.8",
+    "react-tooltip": "^5.21.5",
     "sweetalert2": "^11.7.31"
   },
   "devDependencies": {

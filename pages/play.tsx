@@ -38,8 +38,9 @@ export function PlayPage() {
     );
   }
   return (
-    <div>
+    <div style={{ fontFamily: "cursive, Lucida Handwriting" }}>
       <Header />
+      <hr className={`${styles.divider} ${styles.bigSpacerTop}`} />
       <div className={styles.playContainer}>
         {gameContract && characterContract && tokenContract && swordContract ? (
           <div className={styles.mainSection}>

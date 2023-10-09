@@ -24,15 +24,23 @@ const Home: NextPage = () => {
     isLoading,
     isError,
   } = useOwnedNFTs(editionDrop, address);
-  // console.log(ownedNFTs);
 
   if (!address) {
     return (
       <div className={styles.container}>
-        <div style={{ textAlign: "center" }}>
-          <h1>Welcome to our ThesisNFT game</h1>
-          <p>Please connect to your wallet to play this game</p>
-          <ConnectWallet theme="light" />
+        <div
+          style={{
+            textAlign: "center",
+            fontFamily: "cursive, Lucida Handwriting",
+          }}
+        >
+          <div className={styles.textSlide}>
+            <h1>Welcome to our ThesisNFT game</h1>
+            <h2>Please connect to your wallet to start playing</h2>
+          </div>
+          <div className={styles.buttonSlide}>
+            <ConnectWallet theme="light" />
+          </div>
         </div>
       </div>
     );
@@ -60,11 +68,18 @@ const Home: NextPage = () => {
   return (
     <>
       <Header />
-
-      <div className={styles.container}>
-        <h1>Your current own character</h1>
+      <div
+        style={{
+          fontFamily: "cursive, Lucida Handwriting",
+          paddingBottom: "140px",
+        }}
+        className={styles.container}
+      >
+        <div className={styles.textSlide}>
+          <h1>Your current own character</h1>
+        </div>
         {ownedNFTs.map((value, index) => (
-          <div key={index}>
+          <div className={styles.buttonSlide} key={index}>
             <div className={styles.character} style={{ marginBottom: "15px" }}>
               <ThirdwebNftMedia
                 metadata={value.metadata}
@@ -78,7 +93,7 @@ const Home: NextPage = () => {
           </div>
         ))}
         <button
-          className={`${styles.mainButton} ${styles.spacerBottom}`}
+          className={`${styles.mainButton} ${styles.spacerBottom} ${styles.buttonSlide}`}
           onClick={() => router.push("/play")}
         >
           Play Game
