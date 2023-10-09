@@ -13,7 +13,11 @@ type Props = {
 };
 export default function GamePlayAnimation({ sword }: Props) {
   if (!sword) {
-    return <div style={{ marginLeft: 8 }}>I need a sword!</div>;
+    return (
+      <div style={{ marginLeft: 8, backgroundColor: "#800080" }}>
+        <b>EQUIP A SWORD TO KILL MONSTER !!!!</b>
+      </div>
+    );
   }
   return (
     <div className={styles.slider}>

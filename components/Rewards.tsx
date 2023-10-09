@@ -39,7 +39,7 @@ export default function Rewards({ gameContract, tokenContract }: Props) {
       }}
     >
       <p>
-        Your <b>Gold Gems</b>
+        Your <b>Monster Token</b>
       </p>
 
       {tokenMetadata ? (
@@ -58,6 +58,7 @@ export default function Rewards({ gameContract, tokenContract }: Props) {
       <Web3Button
         contractAddress={GAMEPLAY_ADDRESS}
         action={(contract) => contract.call("withdraw")}
+        onSuccess={() => window.location.reload()}
       >
         Claim
       </Web3Button>

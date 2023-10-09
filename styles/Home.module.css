@@ -178,14 +178,12 @@
 }
 
 .container {
-  /* margin-top: px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100vh;
-  /* padding: 0 24px; */
 }
 
 .page {
@@ -289,6 +287,7 @@
   text-align: center;
   border-radius: 9999px;
   border-style: none;
+font-family: cursive, "Lucida Handwriting";
 }
 
 .mainButton:hover {
@@ -625,6 +624,7 @@
   display: flex; 
   justify-content: space-around;
   width:100%;
+  padding-top: 30px;
 }
 .playContainer {
   display: flex;
@@ -632,5 +632,43 @@
   align-items: center;
   justify-content: center;
   width: fit-content;
-  /* padding: 0 24px; */
+}
+.textSlide{
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	transform: translateX(-200%);
+	opacity: 0;
+	animation: slide-in-anim 1.5s ease-out forwards;
+}
+@keyframes slide-in-anim {
+	20% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0%);
+	}
+}
+.buttonSlide{
+  padding: 0;
+	margin: 0;
+	transform: translateY(-200%);
+	opacity: 0;
+	animation: drop-in-anim 1.5s ease-out forwards;
+}
+
+@keyframes drop-in-anim {
+	20% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0%);
+	}
+}
+.CurrentGear{
+  border-radius: 16px;
+  outline: grey solid 1px;
+  height: 64px;
 }

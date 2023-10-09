@@ -63,14 +63,7 @@ const CurrentGear = ({
         }}
       >
         {/* Currently equipped player */}
-        <div style={{ outline: "1px solid grey", borderRadius: 16 }}>
-          {/* {ownedNft && (
-            <ThirdwebNftMedia
-              metadata={ownedNft.metadata}
-              width="150px"
-              height="64px"
-            />
-          )} */}
+        <div className={styles.CurrentGear}>
           {ownedNft?.map((ownedNft, index) => (
             <ThirdwebNftMedia
               key={index}
@@ -82,13 +75,18 @@ const CurrentGear = ({
         </div>
         {/* Currently equipped pickaxe */}
         <div
-          style={{ outline: "1px solid grey", borderRadius: 16, marginLeft: 8 }}
+          style={{
+            outline: "1px solid grey",
+            borderRadius: 16,
+            marginLeft: 8,
+            height: 64,
+          }}
         >
           {sword && (
             <ThirdwebNftMedia
               metadata={sword?.metadata}
               width="150px"
-              height={"64px"}
+              height="64px"
             />
           )}
         </div>
@@ -104,13 +102,6 @@ const CurrentGear = ({
           marginTop: 24,
         }}
       >
-        {/* {ownedNft && (
-          <ThirdwebNftMedia
-            metadata={ownedNft?.metadata}
-            width={"100px"}
-            height={"64px"}
-          />
-        )} */}
         {ownedNft?.map((ownedNft, index) => (
           <ThirdwebNftMedia
             key={index}
