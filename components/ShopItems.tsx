@@ -41,12 +41,8 @@ export default function ShopItems({ swordContract, item }: Props) {
           theme="dark"
           contractAddress={TOOL_ADDRESS}
           action={(contract) => contract.erc1155.claim(item.metadata.id, 1)}
-          onSuccess={() =>
-            Swal.fire("Claim Character", "Successfully", "success")
-          }
-          onError={() =>
-            Swal.fire("Claim Character", "Something has wrong", "error")
-          }
+          onSuccess={() => Swal.fire("Buy Sword", "Successfully", "success")}
+          onError={() => Swal.fire("Buy Sword", "Something has wrong", "error")}
         >
           Buy
         </Web3Button>
