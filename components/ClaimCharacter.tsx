@@ -21,8 +21,15 @@ export const ClaimCharacter = () => {
     error,
   } = useNFTs(editionDrop, { start: 0, count: 100 });
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>Choose character to play game</h1>
+    <div
+      style={{
+        fontFamily: "cursive, Lucida Handwriting",
+        paddingBottom: "140px",
+      }}
+    >
+      <h1 className={styles.textSlide} style={{ textAlign: "center" }}>
+        Choose character to play game
+      </h1>
       <div
         style={{
           display: "flex",
@@ -32,7 +39,7 @@ export const ClaimCharacter = () => {
         }}
       >
         {nfts?.map((value, index) => (
-          <div key={index}>
+          <div key={index} className={styles.buttonSlide}>
             <div className={styles.character}>
               <ThirdwebNftMedia
                 metadata={value.metadata}

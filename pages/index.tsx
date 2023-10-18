@@ -60,9 +60,12 @@ const Home: NextPage = () => {
 
   if (ownedNFTs.length === 0) {
     return (
-      <div className={styles.container}>
-        <ClaimCharacter />
-      </div>
+      <>
+        <Header />
+        <div className={styles.container}>
+          <ClaimCharacter />
+        </div>
+      </>
     );
   }
   return (
