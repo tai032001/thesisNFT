@@ -69,9 +69,6 @@ export default function OwnedGear({ swordContract, gameContract }: Props) {
                 theme="dark"
                 contractAddress={GAMEPLAY_ADDRESS}
                 action={() => equip(ownedNft.metadata.id)}
-                // onSuccess={() =>
-                //   Swal.fire("Equip", "Equip sword successfully", "success")
-                // }
               >
                 Equip
               </Web3Button>
