@@ -12,6 +12,7 @@ import { ethers } from "ethers";
 import styles from "../styles/Home.module.css";
 import ApproxRewards from "../components/ApproxRewards";
 import { GAMEPLAY_ADDRESS } from "../const/addresses";
+import Swal from "sweetalert2";
 
 type Props = {
   gameContract: SmartContract<any>;
@@ -29,6 +30,13 @@ export default function Rewards({ gameContract, tokenContract }: Props) {
     "calculateRewards",
     [address]
   );
+  const claimSuccess = () => {
+    const alert = Swal.fire("Claim Token", "Successful", "success");
+    alert.then((value) => {
+      console.log(value);
+      window.location.reload();
+    });
+  };
   return (
     <div
       style={{
@@ -58,7 +66,7 @@ export default function Rewards({ gameContract, tokenContract }: Props) {
       <Web3Button
         contractAddress={GAMEPLAY_ADDRESS}
         action={(contract) => contract.call("withdraw")}
-        onSuccess={() => window.location.reload()}
+        onSuccess={() => claimSuccess()}
       >
         Claim
       </Web3Button>

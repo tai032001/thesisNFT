@@ -36,7 +36,9 @@ export default function ApproxRewards({ gameContract }: Props) {
     const interval = setInterval(() => {
       setAmount(amount + everyMillisecondAmount);
     }, 100);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, [amount, everyMillisecondAmount]);
 
   return (

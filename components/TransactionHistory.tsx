@@ -9,7 +9,7 @@ const TransactionHistory = () => {
   const headApiHistory =
     "https://api-sepolia.etherscan.io/api?module=account&action=tokentx&contractaddress=0x5c47f10146A6F4d1BE01Eb0eb45556e331eeEc44&address=";
   const tailApiHistory =
-    "&page=1&offset=5&startblock=0&endblock=99999999&sort=desc&apikey=TQJ8GQVQKW6UCKCTJ3R5UHWU5TZGEK1Y5C";
+    "&page=1&offset=4&startblock=0&endblock=99999999&sort=desc&apikey=TQJ8GQVQKW6UCKCTJ3R5UHWU5TZGEK1Y5C";
   useEffect(() => {
     const FetchHistory = async () => {
       try {
@@ -29,7 +29,7 @@ const TransactionHistory = () => {
   return (
     <div style={{ textAlign: "center" }}>
       <h2 className={`${styles.noGapTop} ${styles.noGapBottom}`}>
-        5 LATEST TRANSACTIONS FROM NEWEST
+        TRANSACTIONS HISTORY
       </h2>
       <div className={styles.transHistory}>
         {transHistory?.map((value, index) => {
