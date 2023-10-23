@@ -42,6 +42,7 @@
     animation: scroll 7s linear infinite;
     display: flex;
     width: calc(250px * 10);
+    /* align-items: center; */
   }
   
   .slide {

@@ -23,14 +23,31 @@ export default function GamePlayAnimation({ sword }: Props) {
     <div className={styles.slider}>
       <div className={styles.slideTrack}>
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
+        {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
+        {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
+        {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
+        {Monster}
+        <hr style={{ height: "0.5px", width: "100%", marginTop: "24px" }} />
         {Monster}
       </div>
     </div>
