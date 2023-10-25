@@ -61,7 +61,12 @@ export default function OwnedGear({ swordContract, gameContract }: Props) {
               className={`${styles.nftMedia} ${styles.spacerTop}`}
               height={"64px"}
             />
-            <h3 style={{ textAlign: "center" }}>{ownedNft.metadata.name}</h3>
+            <h3 style={{ textAlign: "center", backgroundColor: "black" }}>
+              {ownedNft.metadata.name}
+            </h3>
+            <h3 style={{ textAlign: "center", backgroundColor: "black" }}>
+              {ownedNft.metadata.description}
+            </h3>
 
             <div className={styles.smallMargin}>
               <Web3Button

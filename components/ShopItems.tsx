@@ -28,25 +28,48 @@ export default function ShopItems({ swordContract, item }: Props) {
       />
       <h3>{item.metadata.name}</h3>
       <p>
-        Price:{" "}
         <b>
+          Price:{" "}
           {claimCondition && ethers.utils.formatUnits(claimCondition?.price)}{" "}
           Monster Token
         </b>
       </p>
+      <p>
+        <b>Description: {item.metadata.description}</b>
+      </p>
 
-      <div className={styles.smallMargin}>
-        <Web3Button
-          style={{ width: "100%", marginBottom: "5px" }}
-          theme="dark"
-          contractAddress={TOOL_ADDRESS}
-          action={(contract) => contract.erc1155.claim(item.metadata.id, 1)}
-          onSuccess={() => Swal.fire("Buy Sword", "Successfully", "success")}
-          onError={() => Swal.fire("Buy Sword", "Something has wrong", "error")}
-        >
-          Buy
-        </Web3Button>
-      </div>
+      {item.metadata.id === "3" && item.supply === "1" ? (
+        <div className={styles.smallMargin}>
+          <Web3Button
+            isDisabled
+            style={{ width: "100%", marginBottom: "5px" }}
+            theme="light"
+            contractAddress={TOOL_ADDRESS}
+            action={(contract) => contract.erc1155.claim(item.metadata.id, 1)}
+            onSuccess={() => Swal.fire("Buy Sword", "Successfully", "success")}
+            onError={() =>
+              Swal.fire("Buy Sword", "Something has wrong", "error")
+            }
+          >
+            Buy
+          </Web3Button>
+        </div>
+      ) : (
+        <div className={styles.smallMargin}>
+          <Web3Button
+            style={{ width: "100%", marginBottom: "5px" }}
+            theme="dark"
+            contractAddress={TOOL_ADDRESS}
+            action={(contract) => contract.erc1155.claim(item.metadata.id, 1)}
+            onSuccess={() => Swal.fire("Buy Sword", "Successfully", "success")}
+            onError={() =>
+              Swal.fire("Buy Sword", "Something has wrong", "error")
+            }
+          >
+            Buy
+          </Web3Button>
+        </div>
+      )}
     </div>
   );
 }
