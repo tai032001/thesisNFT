@@ -9,14 +9,16 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <div className={styles.playHeader}>
+    <div
+      className={styles.playHeader}
+      style={{ fontFamily: "cursive, Lucida Handwriting" }}
+    >
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
-          fontFamily: "cursive, Lucida Handwriting",
         }}
         onClick={() => router.back()}
       >
